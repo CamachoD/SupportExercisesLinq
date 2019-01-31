@@ -13,10 +13,20 @@ namespace LinqSamples
             var employees = GetEmployees();
 
             //Selecciona los empleados de IT, mayores de 25 años.
-            
+
+            var employeesIT = employees.Where(x => x.Deparment == "IT" && x.Age>25).ToList();
+
 
             //Agrupa todos los empleados por departamento
-            
+            var employeesDEP = employees.GroupBy(x => x.Deparment).ToList();
+
+            foreach (var emp in employeesDEP) {
+
+                Console.WriteLine(emp.Key);
+
+            }
+
+            Console.ReadKey();
             //Ordena a todos los usuarios mediante su salario, de menor a mayor
             
 
