@@ -20,30 +20,45 @@ namespace LinqSamples
             //Agrupa todos los empleados por departamento
             var employeesDEP = employees.GroupBy(x => x.Deparment).ToList();
 
-            foreach (var emp in employeesDEP) {
+            /* foreach (var emp in employeesDEP) {
 
-                Console.WriteLine(emp.Key);
+                 Console.WriteLine(emp.Key);
 
-            }
+             }
 
-            Console.ReadKey();
+             Console.ReadKey();*/
             //Ordena a todos los usuarios mediante su salario, de menor a mayor
-            
+
+            var employeesOrder = employees.OrderBy(x => x.Salary).ToList();
 
             //Crea un listado partiendo de los empleados con la clase NameAndAge
-            
+
+            var employeesNA= employees.Select(x => new NameAndAge() { Age = x.Age, Name = x.Name,Absenses =x.Absences })
+                                      .Distinct().ToList();
+
 
             //Obtiene todas las ausencias en una lista plana
-            
+
+            var employeesFalta = employees.SelectMany(x => x.Absences)
+                                   .Where(x => x.Year == 2019).ToList();
 
             //Comprueba si existe algún empleado que contenga la letra F o la letra A (Separadas)
-            
+            var employeesL = employees.Any(x => x.Name.Contains("F") || x.Name.Contains("A"));
 
             //Obtiene el primer empleado de IT del listado y el último
+
+            var lastGuyIT = employees.Last(x => x.Deparment == "IT");
+            var firstGuyIT = employees.First(x => x.Deparment == "IT");
             
-
             //Obten todos los empleados que ganen más de 20000 y sean menos de 30
+            
+            var employeesSE = employees.Where(x => x.Salary > 20000 && x.Age < 30).ToList();
 
+            foreach (var emplo in employeesSE) {
+
+                Console.WriteLine(emplo.Name);
+
+            }
             
             Console.ReadKey();
         }
@@ -84,5 +99,7 @@ namespace LinqSamples
         public double Salary { get; set; }
 
         public List<DateTime> Absences { get; set; } = new List<DateTime>();
+
+        
     }
 }
